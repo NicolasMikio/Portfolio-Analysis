@@ -2,7 +2,32 @@ import pandas as pd
 import numpy as np
 import math
 
-   
+'''
+Pacote de funções desenvolvidos nas aulas de Introduction to Portfolio Construction and Analysis with Python ministrado pela EDHEC
+Algumas funções foram alteradas e outras desenvolvidas e adicionadas ao pacote
+'''
+
+def consulta_bc(codigo_bcb):
+    '''
+    Importa os dados Banco Central através de uma API
+    '''
+    url = 'http://api.bcb.gov.br/dados/serie/bcdata.sgs.{}/dados?formato=json'.format(codigo_bcb)
+    df = pd.read_json(url)
+    df['data'] = pd.to_datetime(df['data'], dayfirst=True)
+    df.set_index('data', inplace=True)
+    return df
+
+
+def calcula_retornos(data: pd.Series, column="Close"):
+    '''
+    Calcula o retorno acumulado da série
+    '''
+    df = data[column].pct_change()
+    df.drop(df.head(1).index,inplace=True)
+    
+    return pd.DataFrame(df)
+
+
 def skewness(r):
     """
     Alternative to scipy.stats.skew()
