@@ -312,7 +312,7 @@ def plot_ef(n_points, er, cov, style='.-', legend=False, show_cml=False, riskfre
         # add CML
         cml_x = [0, vol_msr]
         cml_y = [riskfree_rate, r_msr]
-        ax.plot(cml_x, cml_y, color='green', marker='o', linestyle='dashed', linewidth=2, markersize=10)
+        ax.plot(cml_x, cml_y, color='green', marker='o', linestyle='dashed', linewidth=1, markersize=6)
     if show_ew:
         n = er.shape[0]
         w_ew = np.repeat(1/n, n)
